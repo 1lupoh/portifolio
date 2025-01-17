@@ -199,7 +199,7 @@
     padding: 20px;
     background: #333;
     border-radius: 10px;
-    transition: transform 0.3s ease, box-shadow 1.0s ease, color 1.0s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, color 0.3s ease;
     width: 100%;
     margin: 10px;
   }
@@ -395,8 +395,9 @@
   // Função para animar as barras e porcentagens
   document.addEventListener("DOMContentLoaded", function () {
     const progressBars = document.querySelectorAll(".progress-bar");
-    
-    progressBars.forEach(bar => {
+
+    // Função para animar as barras de progresso
+    function animateProgressBar(bar) {
       const percentage = bar.getAttribute("data-percentage");
       let progress = 0;
       const interval = setInterval(() => {
@@ -408,7 +409,22 @@
           bar.querySelector(".progress-text").textContent = `${progress}%`;
         }
       }, 15); // Velocidade da animação (ajuste conforme necessário)
-    });
+    }
+
+    // Criar o observador de interseção
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const bars = entry.target.querySelectorAll(".progress-bar");
+          bars.forEach(bar => animateProgressBar(bar));
+          observer.unobserve(entry.target); // Para evitar animar novamente
+        }
+      });
+    }, { threshold: 0.5 }); // Começa a animar quando 50% da seção for visível
+
+    // Observar a seção de habilidades
+    const skillsSection = document.getElementById("skills-section");
+    observer.observe(skillsSection);
   });
 </script>
 
@@ -432,7 +448,7 @@
     font-weight: bold;
     font-size: 1rem;
     border-radius: 10px;
-    transition: width 0.5s ease-in-out;
+    transition: width 1.0s ease-in-out;
   }
 
   .progress-text {
