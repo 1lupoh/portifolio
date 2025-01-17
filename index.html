@@ -408,7 +408,7 @@
           bar.style.width = `${progress}%`;
           bar.querySelector(".progress-text").textContent = `${progress}%`;
         }
-      }, 15); // Velocidade da animação (ajuste conforme necessário)
+      }, 13); // Velocidade da animação (ajuste conforme necessário)
     }
 
     // Criar o observador de interseção
@@ -420,7 +420,7 @@
           observer.unobserve(entry.target); // Para evitar animar novamente
         }
       });
-    }, { threshold: 0.5 }); // Começa a animar quando 50% da seção for visível
+    }, { threshold: 0.2 }); // Começa a animar quando 50% da seção for visível
 
     // Observar a seção de habilidades
     const skillsSection = document.getElementById("skills-section");
